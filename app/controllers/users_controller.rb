@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      render json: {id: @user.id, is_admin: @user.is_admin }, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -38,6 +38,15 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
+  end
+
+  def login
+    @user = User.find_by(email: params[:email])
+    if @user.present? && @user.password == params[:password]
+      render json: {id: @user.id, is_admin: @user.is_admin }, status: :ok
+    else
+      render json: { error: 'unauthorized' }, status: :unauthorized
+    end
   end
 
   private
