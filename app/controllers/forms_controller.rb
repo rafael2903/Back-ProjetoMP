@@ -30,11 +30,12 @@ class FormsController < ApplicationController
   # POST /forms
   def create
     my_json = params[:question]
+    id = params[:user_id]
     type = my_json.kind_of? Array
     if type === true
       my_json2 = my_json.to_json
       my_xml = JSON.parse(my_json2).to_xml
-      @form = Form.new({ question: my_xml })
+      @form = Form.new({ question: my_xml, user_id: id })
       if @form.save
         render json: @form, status: :created, location: @form
       else
@@ -50,7 +51,7 @@ class FormsController < ApplicationController
     if type === true
       my_json2 = my_json.to_json
       my_xml = JSON.parse(my_json2).to_xml
-      @form = Form.new({ question: my_xml })
+      @form = Form.new({ question: my_xml, user_id: id })
       if @form.update(form_params)
         render json: @form
       else
@@ -73,6 +74,6 @@ class FormsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def form_params
-    params.require(:form).permit(:question, :id)
+    params.require(:form).permit(:question, :id, :user_id)
   end
 end
