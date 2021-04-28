@@ -47,6 +47,7 @@ class FormsController < ApplicationController
   # PATCH/PUT /forms/1
   def update
     my_json = params[:question]
+    id = params[:user_id]
     type = my_json.kind_of? Array
     if type === true
       my_json2 = my_json.to_json
