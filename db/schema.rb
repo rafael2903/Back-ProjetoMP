@@ -10,14 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_417_222_907) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+ActiveRecord::Schema.define(version: 2021_04_27_203551) do
 
-  create_table 'forms', force: :cascade do |t|
-    t.string 'question'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "forms", force: :cascade do |t|
+    t.string "question"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_forms_on_user_id"
+  end
+
+  create_table "user_has_forms", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.bigint "form_id", null: false
+    t.index ["form_id"], name: "index_user_has_forms_on_form_id"
+    t.index ["user_id"], name: "index_user_has_forms_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -28,4 +40,7 @@ ActiveRecord::Schema.define(version: 20_210_417_222_907) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "forms", "users"
+  add_foreign_key "user_has_forms", "forms"
+  add_foreign_key "user_has_forms", "users"
 end
