@@ -4,7 +4,7 @@ class FormAnswersController < ApplicationController
   # GET /form_answers
   def index
     @form_answers = FormAnswer.all
-    @form_answer.each do |form|
+    @form_answers.map do |form|
       my_xml = form.answers
       type = my_xml.kind_of? String
       if type === false
@@ -16,10 +16,10 @@ class FormAnswersController < ApplicationController
 
   # GET /form_answers/1
   def show
-    my_xml = @form.answers
+    my_xml = @form_answer.answers
     type = my_xml.kind_of? String
     if type === false
-      form.answers = Hash.from_xml(my_xml).to_json
+      form_answer.answers = Hash.from_xml(my_xml).to_json
     end
     render json: @form_answer
   end
