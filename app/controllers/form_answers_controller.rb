@@ -31,8 +31,8 @@ class FormAnswersController < ApplicationController
     if type === true
       my_json2 = my_json.to_json
       my_xml = JSON.parse(my_json2).to_xml
-      @form_answer = FormAnswer.new({answers: my_xml, user_id:
-      params[:user_id], form_id: params[:form_id]})
+      @form_answer = FormAnswer.new({ answers: my_xml, user_id:
+      params[:user_id], form_id: params[:form_id] })
       if @form_answer.save
         render json: @form_answer, status: :created, location: @form_answer
       else
@@ -48,8 +48,8 @@ class FormAnswersController < ApplicationController
     if type === true
       my_json2 = my_json.to_json
       my_xml = JSON.parse(my_json2).to_xml
-      if @form_answer.update({answers: my_xml, user_id:
-      params[:user_id], form_id: params[:form_id]})
+      if @form_answer.update({ answers: my_xml, user_id:
+      params[:user_id], form_id: params[:form_id] })
         render json: @form_answer
       else
         render json: @form_answer.errors, status: :unprocessable_entity
@@ -63,11 +63,12 @@ class FormAnswersController < ApplicationController
   end
 
   private
-    def set_form_answer
-      @form_answer = FormAnswer.find(params[:id])
-    end
 
-    def form_answer_params
-      params.require(:form_answer).permit(:answers, :form_id, :user_id)
-    end
+  def set_form_answer
+    @form_answer = FormAnswer.find(params[:id])
+  end
+
+  def form_answer_params
+    params.require(:form_answer).permit(:answers, :form_id, :user_id)
+  end
 end

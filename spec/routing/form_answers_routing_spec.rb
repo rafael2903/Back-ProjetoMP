@@ -10,7 +10,6 @@ RSpec.describe FormAnswersController, type: :routing do
       expect(get: "/form_answers/1").to route_to("form_answers#show", id: "1")
     end
 
-
     it "routes to #create" do
       expect(post: "/form_answers").to route_to("form_answers#create")
     end

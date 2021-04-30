@@ -10,7 +10,6 @@ RSpec.describe UserHasFormsController, type: :routing do
       expect(get: "/user_has_forms/1").to route_to("user_has_forms#show", id: "1")
     end
 
-
     it "routes to #create" do
       expect(post: "/user_has_forms").to route_to("user_has_forms#create")
     end

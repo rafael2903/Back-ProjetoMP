@@ -8,7 +8,7 @@ RSpec.describe "/forms", type: :request do
     it "renderiza resposta de sucesso" do
       user = User.create!({ :email => "pri@gmail.com", :password => "123456" })
       Form.create!({ :question => [{ "pergunta" => "pergunta", "type" => "a" }],
-      :user_id => user.id })
+                     :user_id => user.id })
       get "/forms", headers: { 'Content-Type': 'application/json' }, as: :json
       expect(response).to be_successful
     end
@@ -18,7 +18,7 @@ RSpec.describe "/forms", type: :request do
     it "Renderiza resposta de sucesso" do
       user = User.create!({ :email => "pri@gmail.com", :password => "123456" })
       form = Form.create!({ :question => [{ "pergunta" => "pergunta", "type" => "a" }],
-      :user_id => user.id })
+                            :user_id => user.id })
       get form_url(form), as: :json
       expect(response).to be_successful
     end
@@ -31,7 +31,7 @@ RSpec.describe "/forms", type: :request do
         expect {
           post "/forms",
                params: { :question => [{ "pergunta" => "pergunta", "type" => "a" }],
-               :user_id => user.id },
+                         :user_id => user.id },
                headers: { 'Content-Type': 'application/json' }, as: :json
         }.to change(Form, :count).by(1)
       end
@@ -40,7 +40,7 @@ RSpec.describe "/forms", type: :request do
         user = User.create!({ :email => "pri@gmail.com", :password => "123456" })
         post "/forms",
              params: { :question => [{ "pergunta" => "pergunta", "type" => "a" }],
-             :user_id => user.id },
+                       :user_id => user.id },
              headers: { 'Content-Type': 'application/json' }, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including("application/json"))
@@ -70,10 +70,10 @@ RSpec.describe "/forms", type: :request do
       it "atualiza o atributo do formulario" do
         user = User.create!({ :email => "pri@gmail.com", :password => "123456" })
         form = Form.create!({ :question => [{ "pergunta" => "pergunta", "type" => "a" }],
-        :user_id => user.id })
+                              :user_id => user.id })
         patch form_url(form),
               params: { :question => [{ "title" => "pergunta", "type" => "b" }],
-              :user_id => user.id },
+                        :user_id => user.id },
               headers: { 'Content-Type': 'application/json' }, as: :json
         form.reload
       end
@@ -81,10 +81,10 @@ RSpec.describe "/forms", type: :request do
       it "renderiza resposta JSON de sucesso" do
         user = User.create!({ :email => "pri@gmail.com", :password => "123456" })
         form = Form.create!({ :question => [{ "pergunta" => "pergunta", "type" => "a" }],
-        :user_id => user.id })
+                              :user_id => user.id })
         patch form_url(form),
               params: { :question => [{ "title" => "pergunta", "type" => "b" }],
-              :user_id => user.id },
+                        :user_id => user.id },
               headers: { 'Content-Type': 'application/json' }, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including("application/json"))
@@ -95,7 +95,7 @@ RSpec.describe "/forms", type: :request do
       it "renderiza resposta de erro JSON" do
         user = User.create!({ :email => "pri@gmail.com", :password => "123456" })
         form = Form.create!({ :question => [{ "pergunta" => "pergunta", "type" => "a" }],
-        :user_id => user.id })
+                              :user_id => user.id })
         patch form_url(form),
               params: { :question => 1, :user_id => user.id }, headers: { 'Content-Type': 'application/json' },
               as: :json
@@ -109,7 +109,7 @@ RSpec.describe "/forms", type: :request do
     it "deleta um formulario" do
       user = User.create!({ :email => "pri@gmail.com", :password => "123456" })
       form = Form.create!({ :question => [{ "pergunta" => "pergunta", "type" => "a" }],
-      :user_id => user.id })
+                            :user_id => user.id })
       expect {
         delete form_url(form), headers: { 'Content-Type': 'application/json' }, as: :json
       }.to change(Form, :count).by(-1)
