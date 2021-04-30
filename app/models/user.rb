@@ -6,4 +6,5 @@ class User < ApplicationRecord
     has_many :user_has_form
     has_many :forms, through: :user_has_form
     has_many :forms
+    has_many :form_answers
 end
