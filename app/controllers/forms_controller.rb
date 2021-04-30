@@ -7,7 +7,7 @@ class FormsController < ApplicationController
   # GET /forms
   def index
     @forms = Form.all
-    @forms.map do |form|
+    @forms.each do |form|
       my_xml = form.question
       type = my_xml.kind_of? String
       if type === false
@@ -21,8 +21,8 @@ class FormsController < ApplicationController
   def show
     my_xml = @form.question
     type = my_xml.kind_of? String
-    if type === false
-      form.question = Hash.from_xml(my_xml).to_json
+    if type === true
+      @form.question = Hash.from_xml(my_xml).to_json
     end
     render json: @form
   end
@@ -52,7 +52,6 @@ class FormsController < ApplicationController
     if type === true
       my_json2 = my_json.to_json
       my_xml = JSON.parse(my_json2).to_xml
-      @form = Form.new({ question: my_xml, user_id: id })
       if @form.update(form_params)
         render json: @form
       else
@@ -68,12 +67,10 @@ class FormsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_form
     @form = Form.find(params[:id])
   end
 
-  # Only allow a trusted parameter "white list" through.
   def form_params
     params.require(:form).permit(:question, :id, :user_id)
   end

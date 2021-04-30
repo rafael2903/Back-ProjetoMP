@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_27_203551) do
+ActiveRecord::Schema.define(version: 2021_04_28_235959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "form_answers", force: :cascade do |t|
+    t.string "answers"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "form_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["form_id"], name: "index_form_answers_on_form_id"
+    t.index ["user_id"], name: "index_form_answers_on_user_id"
+  end
 
   create_table "forms", force: :cascade do |t|
     t.string "question"
@@ -40,6 +50,8 @@ ActiveRecord::Schema.define(version: 2021_04_27_203551) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "form_answers", "forms"
+  add_foreign_key "form_answers", "users"
   add_foreign_key "forms", "users"
   add_foreign_key "user_has_forms", "forms"
   add_foreign_key "user_has_forms", "users"
