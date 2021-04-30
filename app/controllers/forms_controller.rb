@@ -21,8 +21,8 @@ class FormsController < ApplicationController
   def show
     my_xml = @form.question
     type = my_xml.kind_of? String
-    if type === false
-      form.question = Hash.from_xml(my_xml).to_json
+    if type === true
+      @form.question = Hash.from_xml(my_xml).to_json
     end
     render json: @form
   end
