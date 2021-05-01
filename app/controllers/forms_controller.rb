@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# testes referente a estoria de usuario "EU04"
+# codigo referente a estoria de usuario "EU04"
 class FormsController < ApplicationController
   before_action :set_form, only: %i[show update destroy]
 
@@ -26,11 +26,10 @@ class FormsController < ApplicationController
   # POST /forms
   def create # rubocop:todo Metrics/MethodLength
     my_json = params[:question]
-    type = my_json.is_a? Array
-    return unless type == true
-
-    my_json2 = my_json.to_json
-    my_xml = JSON.parse(my_json2).to_xml
+    unless my_json.nil?
+      my_json2 = my_json.to_json
+      my_xml = JSON.parse(my_json2).to_xml
+    end
     @form = Form.new({ question: my_xml, user_id: params[:user_id] })
     if @form.save
       render json: @form, status: :created, location: @form
@@ -42,11 +41,10 @@ class FormsController < ApplicationController
   # PATCH/PUT /forms/1
   def update
     my_json = params[:question]
-    type = my_json.is_a? Array
-    return unless type == true
-
-    my_json2 = my_json.to_json
-    my_xml = JSON.parse(my_json2).to_xml # rubocop:todo Lint/UselessAssignment
+    unless my_json.nil?
+      my_json2 = my_json.to_json
+      my_xml = JSON.parse(my_json2).to_xml # rubocop:todo Lint/UselessAssignment
+    end
     if @form.update(form_params)
       render json: @form
     else
