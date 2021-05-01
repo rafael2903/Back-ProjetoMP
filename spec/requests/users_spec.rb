@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe '/users', type: :request do
+RSpec.describe '/users', type: :request do # rubocop:todo Metrics/BlockLength
   describe 'GET /index' do
     it 'renderiza resposta de sucesso' do
       User.create!({ email: 'pri@gmail.com', password: '123456' })
@@ -19,7 +19,7 @@ RSpec.describe '/users', type: :request do
     end
   end
 
-  describe 'POST /create' do
+  describe 'POST /create' do # rubocop:todo Metrics/BlockLength
     context 'com parametros validos' do
       it 'cria um novo usuario' do
         expect do
@@ -57,7 +57,7 @@ RSpec.describe '/users', type: :request do
     end
   end
 
-  describe 'PATCH /update' do
+  describe 'PATCH /update' do # rubocop:todo Metrics/BlockLength
     context 'com parametros validos' do
       it 'atualiza parametros do usuario' do
         user = User.create!({ email: 'pri@gmail.com', password: '123456' })
