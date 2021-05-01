@@ -131,4 +131,35 @@ RSpec.describe '/user_has_forms', type: :request do # rubocop:todo Metrics/Block
       end.to change(UserHasForm, :count).by(-1)
     end
   end
+
+  describe 'RESPONDENTS /respondents' do
+    it 'renderiza todos com form_id iguais' do
+      user1 = User.create!({ email: 'pri@email.com', password: '123456' })
+      user2 = User.create!({ email: 'pri@hotmail.com', password: '123456' })
+      user3 = User.create!({ email: 'pri@gmail.com', password: '123456' })
+      creator = User.create!({ email: 'priscila@gmail.com', password: '123456' })
+      form = Form.create!({ question: [{ 'pergunta' => 'pergunta', 'type' => 'a' }],
+                            user_id: creator.id })
+      UserHasForm.create!({ user_id: user1.id, form_id: form.id })
+      UserHasForm.create!({ user_id: user2.id, form_id: form.id })
+      UserHasForm.create!({ user_id: user3.id, form_id: form.id })
+      get '/respondents/:id', as: :json
+      expect(response).to be_successful
+    end
+
+    it 'renderiza JSON de sucesso ao retornar todos com form_id iguais' do
+      user1 = User.create!({ email: 'pri@email.com', password: '123456' })
+      user2 = User.create!({ email: 'pri@hotmail.com', password: '123456' })
+      user3 = User.create!({ email: 'pri@gmail.com', password: '123456' })
+      creator = User.create!({ email: 'priscila@gmail.com', password: '123456' })
+      form = Form.create!({ question: [{ 'pergunta' => 'pergunta', 'type' => 'a' }],
+                            user_id: creator.id })
+      UserHasForm.create!({ user_id: user1.id, form_id: form.id })
+      UserHasForm.create!({ user_id: user2.id, form_id: form.id })
+      UserHasForm.create!({ user_id: user3.id, form_id: form.id })
+      get '/respondents/:id', as: :json
+      expect(response).to have_http_status(:ok)
+      expect(response.content_type).to match(a_string_including('application/json'))
+    end
+  end
 end

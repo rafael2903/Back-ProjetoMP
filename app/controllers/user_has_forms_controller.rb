@@ -40,6 +40,13 @@ class UserHasFormsController < ApplicationController # rubocop:todo Style/Docume
     @user_has_form.destroy
   end
 
+  # GET /respondents/1
+  def respondents
+    @user_has_form = UserHasForm.all
+    @user_has_form = @user_has_form.where(form_id: params[:id])
+    render json: @user_has_form
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
