@@ -2,8 +2,7 @@ Para rodar o programa é necessário ter o rails instalado, após isso, siga os 
 1) rode rails db:create db:migrate
 2) rode bundle install para instalar as dependências
 3) rode rspec e poderá ver se passa em todos os casos de testes
-4) rode rubocop --fix para rodar verificador de código
+4) rode rubocop para rodar verificador de código
 
-Os arquivos com os testes estão na pasta spec/request, o teste de formulário é o arquivo forms_spec.rb
+Os arquivos com os testes estão na pasta spec/request
 Os testes de rotas está na pasta spec/routing
-O código desenvolvido está na app/controller/forms_controller e users_controller

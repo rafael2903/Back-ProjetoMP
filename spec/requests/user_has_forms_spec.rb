@@ -132,7 +132,7 @@ RSpec.describe '/user_has_forms', type: :request do # rubocop:todo Metrics/Block
     end
   end
 
-  describe 'RESPONDENTS /respondents' do
+  describe 'RESPONDENTS /respondents' do # rubocop:todo Metrics/BlockLength
     it 'renderiza todos com form_id iguais' do
       user1 = User.create!({ email: 'pri@email.com', password: '123456' })
       user2 = User.create!({ email: 'pri@hotmail.com', password: '123456' })
