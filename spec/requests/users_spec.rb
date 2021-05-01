@@ -14,7 +14,7 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe '/users', type: :request do
+RSpec.describe '/users', type: :request do # rubocop:todo Metrics/BlockLength
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
@@ -50,7 +50,7 @@ RSpec.describe '/users', type: :request do
     end
   end
 
-  describe 'POST /create' do
+  describe 'POST /create' do # rubocop:todo Metrics/BlockLength
     context 'with valid parameters' do
       it 'creates a new User' do
         expect do
@@ -84,7 +84,7 @@ RSpec.describe '/users', type: :request do
     end
   end
 
-  describe 'PATCH /update' do
+  describe 'PATCH /update' do # rubocop:todo Metrics/BlockLength
     context 'with valid parameters' do
       let(:new_attributes) do
         skip('Add a hash of attributes valid for your model')

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UsersController < ApplicationController
+class UsersController < ApplicationController # rubocop:todo Style/Documentation
   before_action :set_user, only: %i[show update destroy]
 
   # GET /users

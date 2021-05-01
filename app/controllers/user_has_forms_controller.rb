@@ -1,5 +1,7 @@
-class UserHasFormsController < ApplicationController
-  before_action :set_user_has_form, only: [:show, :update, :destroy]
+# frozen_string_literal: true
+
+class UserHasFormsController < ApplicationController # rubocop:todo Style/Documentation
+  before_action :set_user_has_form, only: %i[show update destroy]
 
   # GET /user_has_forms
   def index
