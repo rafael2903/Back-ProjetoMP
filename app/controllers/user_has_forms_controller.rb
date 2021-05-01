@@ -1,5 +1,7 @@
-class UserHasFormsController < ApplicationController
-  before_action :set_user_has_form, only: [:show, :update, :destroy]
+# frozen_string_literal: true
+
+class UserHasFormsController < ApplicationController # rubocop:todo Style/Documentation
+  before_action :set_user_has_form, only: %i[show update destroy]
 
   # GET /user_has_forms
   def index
@@ -38,14 +40,22 @@ class UserHasFormsController < ApplicationController
     @user_has_form.destroy
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user_has_form
-      @user_has_form = UserHasForm.find(params[:id])
-    end
+  # GET /respondents/1
+  def respondents
+    @user_has_form = UserHasForm.all
+    @user_has_form = @user_has_form.where(form_id: params[:id])
+    render json: @user_has_form
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def user_has_form_params
-      params.require(:user_has_form).permit(:user_id, :form_id)
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user_has_form
+    @user_has_form = UserHasForm.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def user_has_form_params
+    params.require(:user_has_form).permit(:user_id, :form_id)
+  end
 end

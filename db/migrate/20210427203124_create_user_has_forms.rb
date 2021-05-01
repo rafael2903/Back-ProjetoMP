@@ -1,8 +1,7 @@
-class CreateUserHasForms < ActiveRecord::Migration[6.0]
-  def change
-    create_table :user_has_forms do |t|
+# frozen_string_literal: true
 
-      t.timestamps
-    end
+class CreateUserHasForms < ActiveRecord::Migration[6.0] # rubocop:todo Style/Documentation
+  def change
+    create_table :user_has_forms, &:timestamps
   end
 end
