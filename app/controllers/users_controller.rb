@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# codigo referente a estoria de usuario "EU01"
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy]
 
@@ -20,7 +21,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: {id: @user.id, is_admin: @user.is_admin }, status: :created, location: @user
+      render json: { id: @user.id, is_admin: @user.is_admin }, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -43,7 +44,7 @@ class UsersController < ApplicationController
   def login
     @user = User.find_by(email: params[:email])
     if @user.present? && @user.password == params[:password]
-      render json: {id: @user.id, is_admin: @user.is_admin }, status: :ok
+      render json: { id: @user.id, is_admin: @user.is_admin }, status: :ok
     else
       render json: { error: 'unauthorized' }, status: :unauthorized
     end
