@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# codigo referente a estoria de usuario "EU 04"
 class Form < ApplicationRecord
   validates :question, presence: true
 

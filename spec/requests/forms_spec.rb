@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TESTES referente a estoria de usuario "EU 04"
 require 'rails_helper'
 
 # testes referente a estória de usuário [EU04] # rubocop:todo Style/AsciiComments

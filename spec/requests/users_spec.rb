@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TESTES referente a estoria de usuario "EU 01"
 require 'rails_helper'
 
 RSpec.describe '/users', type: :request do # rubocop:todo Metrics/BlockLength

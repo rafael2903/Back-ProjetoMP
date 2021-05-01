@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-class UsersController < ApplicationController # rubocop:todo Style/Documentation
+# codigo referente a estoria de usuario "EU01"
+class UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy]
 
   # GET /users

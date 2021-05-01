@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-class FormAnswersController < ApplicationController # rubocop:todo Style/Documentation
+# codigo referente a estoria de usuario "EU10"
+class FormAnswersController < ApplicationController
   before_action :set_form_answer, only: %i[show update destroy]
 
   # GET /form_answers
