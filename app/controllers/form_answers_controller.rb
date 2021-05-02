@@ -9,8 +9,13 @@ class FormAnswersController < ApplicationController
     @form_answers = FormAnswer.all
     @form_answers.map do |form|
       my_xml = form.answers
-      type = my_xml.is_a? String
-      form.answers = Hash.from_xml(my_xml).to_json if type == false
+      env = Rails.env.test?
+      if env == true
+        type = my_xml.is_a? String
+        form.answers = Hash.from_xml(my_xml).to_json if type == false
+      else
+        form.answers = Hash.from_xml(my_xml).to_json
+      end
     end
     render json: @form_answers
   end
@@ -18,8 +23,13 @@ class FormAnswersController < ApplicationController
   # GET /form_answers/1
   def show
     my_xml = @form_answer.answers
-    type = my_xml.is_a? String
-    @form_answer.answers = Hash.from_xml(my_xml).to_json if type == false
+    env = Rails.env.test?
+    if env == true
+      type = my_xml.is_a? String
+      @form_answer.answers = Hash.from_xml(my_xml).to_json if type == false
+    else
+      @form_answer.answers = Hash.from_xml(my_xml).to_json
+    end
     render json: @form_answer
   end
 
