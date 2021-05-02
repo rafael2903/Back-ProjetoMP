@@ -43,14 +43,14 @@ RSpec.describe '/users', type: :request do # rubocop:todo Metrics/BlockLength
       it 'nao cria um novo usuario' do
         expect do
           post users_url,
-               params: { email: 'priscila@email.com', is_admin: false },
+               params: { is_admin: false },
                headers: { 'Content_Type': 'application/json' }, as: :json
         end.to change(User, :count).by(0)
       end
 
       it 'renderiza JSON de erro ao nao criar um novo usuario' do
         post users_url,
-             params: { email: 'priscila@email.com', is_admin: false },
+             params: { is_admin: false },
              headers: { 'Content_Type': 'application/json' }, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json; charset=utf-8')
@@ -82,9 +82,7 @@ RSpec.describe '/users', type: :request do # rubocop:todo Metrics/BlockLength
       it 'renderiza JSON de erro ao atualizar atributo' do
         user = User.create!({ email: 'pri@gmail.com', password: '123456' })
         patch user_url(user),
-              # rubocop:todo Layout/LineLength
-              params: { email: 'pri@gmail.com', password: nil }, headers: { 'Content_Type': 'application/json' }, as: :json
-        # rubocop:enable Layout/LineLength
+              params: { email: nil }, headers: { 'Content_Type': 'application/json' }, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json; charset=utf-8')
       end

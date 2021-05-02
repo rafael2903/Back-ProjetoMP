@@ -26,11 +26,10 @@ class FormAnswersController < ApplicationController
   # POST /form_answers
   def create # rubocop:todo Metrics/MethodLength
     my_json = params[:answers]
-    type = my_json.is_a? Array
-    return unless type == true
-
-    my_json2 = my_json.to_json
-    my_xml = JSON.parse(my_json2).to_xml
+    unless my_json.nil?
+      my_json2 = my_json.to_json
+      my_xml = JSON.parse(my_json2).to_xml
+    end
     @form_answer = FormAnswer.new({ answers: my_xml, user_id:
     params[:user_id], form_id: params[:form_id] })
     if @form_answer.save
@@ -43,11 +42,10 @@ class FormAnswersController < ApplicationController
   # PATCH/PUT /form_answers/1
   def update # rubocop:todo Metrics/MethodLength
     my_json = params[:answers]
-    type = my_json.is_a? Array
-    return unless type == true
-
-    my_json2 = my_json.to_json
-    my_xml = JSON.parse(my_json2).to_xml
+    unless my_json.nil?
+      my_json2 = my_json.to_json
+      my_xml = JSON.parse(my_json2).to_xml
+    end
     if @form_answer.update({ answers: my_xml, user_id:
       params[:user_id], form_id: params[:form_id] })
       render json: @form_answer
