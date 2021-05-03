@@ -5,7 +5,7 @@ class FormAnswersController < ApplicationController
   before_action :set_form_answer, only: %i[show update destroy]
 
   # GET /form_answers
-  def index
+  def index # rubocop:todo Metrics/MethodLength
     @form_answers = FormAnswer.all
     @form_answers.map do |form|
       my_xml = form.answers
