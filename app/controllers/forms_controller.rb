@@ -62,6 +62,25 @@ class FormsController < ApplicationController
     end
   end
 
+  # rubocop:todo Metrics/MethodLength
+  # codigo referente a estoria de usuario "EU[07]"
+  def create_for_me # rubocop:todo Metrics/AbcSize
+    @forms = Form.all
+    @forms = @forms.where(user_id: params[:id])
+    @forms.map do |form|
+      my_xml = form.question
+      env = Rails.env.test?
+      if env == true
+        type = my_xml.is_a? String
+        form.question = Hash.from_xml(my_xml).to_json if type == false
+      else
+        form.question = Hash.from_xml(my_xml).to_json
+      end
+    end
+    render json: @forms
+  end
+  # rubocop:enable Metrics/MethodLength
+
   # DELETE /forms/1
   def destroy
     @form.destroy

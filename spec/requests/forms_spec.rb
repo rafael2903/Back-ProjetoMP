@@ -456,4 +456,192 @@ RSpec.describe '/forms', type: :request do # rubocop:todo Metrics/BlockLength
       end.to change(Form, :count).by(-1)
     end
   end
+
+  # codigo referente a estoria de usuario "EU[07]"
+  describe 'CREATE FOR ME /create_for_me' do # rubocop:todo Metrics/BlockLength
+    it 'renderiza todos os forms com user_id iguais' do # rubocop:todo Metrics/BlockLength
+      user = User.create!({ email: 'pri@gmail.com', password: '123456' })
+      Form.create!({ user_id: user.id,
+                     question: { "title": 'Formulário sem título 1',
+                                 "questions": [
+                                   {
+                                     "id": 1,
+                                     "title": 'Qual é o seu nome',
+                                     "type": 'text'
+                                   },
+                                   {
+                                     "id": 2,
+                                     "title": 'Você gosta de chocolate?',
+                                     "type": 'radio',
+                                     "options": %w[
+                                       sim
+                                       não
+                                       talvez
+                                     ]
+                                   },
+                                   {
+                                     "id": 3,
+                                     "title": 'Selecione suas frutas preferidas',
+                                     "type": 'checkbox',
+                                     "options": %w[
+                                       Maçã
+                                       Banana
+                                       Laranja
+                                       Melancia
+                                       Mamão
+                                     ]
+                                   },
+                                   {
+                                     "id": 4,
+                                     "title": 'Selecione suas frutas preferidas',
+                                     "type": 'checkbox',
+                                     "options": %w[
+                                       Maçã
+                                       Banana
+                                       Laranja
+                                       Melancia
+                                       Mamão
+                                     ]
+                                   }
+                                 ] } })
+      Form.create!({ user_id: user.id,
+                     question: { "title": 'Formulário sem título 1',
+                                 "questions": [
+                                   {
+                                     "id": 1,
+                                     "title": 'Qual é o seu nome',
+                                     "type": 'text'
+                                   },
+                                   {
+                                     "id": 2,
+                                     "title": 'Você gosta de chocolate?',
+                                     "type": 'radio',
+                                     "options": %w[
+                                       sim
+                                       não
+                                       talvez
+                                     ]
+                                   },
+                                   {
+                                     "id": 3,
+                                     "title": 'Selecione suas frutas preferidas',
+                                     "type": 'checkbox',
+                                     "options": %w[
+                                       Maçã
+                                       Banana
+                                       Laranja
+                                       Melancia
+                                       Mamão
+                                     ]
+                                   },
+                                   {
+                                     "id": 4,
+                                     "title": 'Selecione suas frutas preferidas',
+                                     "type": 'checkbox',
+                                     "options": %w[
+                                       Maçã
+                                       Banana
+                                       Laranja
+                                       Melancia
+                                       Mamão
+                                     ]
+                                   }
+                                 ] } })
+      get '/create_for_me/:id', as: :json
+      expect(response).to be_successful
+    end
+
+    it 'renderiza JSON de sucesso ao retornar todos com form_id iguais' do # rubocop:todo Metrics/BlockLength
+      user = User.create!({ email: 'pri@gmail.com', password: '123456' })
+      Form.create!({ user_id: user.id,
+                     question: { "title": 'Formulário sem título 1',
+                                 "questions": [
+                                   {
+                                     "id": 1,
+                                     "title": 'Qual é o seu nome',
+                                     "type": 'text'
+                                   },
+                                   {
+                                     "id": 2,
+                                     "title": 'Você gosta de chocolate?',
+                                     "type": 'radio',
+                                     "options": %w[
+                                       sim
+                                       não
+                                       talvez
+                                     ]
+                                   },
+                                   {
+                                     "id": 3,
+                                     "title": 'Selecione suas frutas preferidas',
+                                     "type": 'checkbox',
+                                     "options": %w[
+                                       Maçã
+                                       Banana
+                                       Laranja
+                                       Melancia
+                                       Mamão
+                                     ]
+                                   },
+                                   {
+                                     "id": 4,
+                                     "title": 'Selecione suas frutas preferidas',
+                                     "type": 'checkbox',
+                                     "options": %w[
+                                       Maçã
+                                       Banana
+                                       Laranja
+                                       Melancia
+                                       Mamão
+                                     ]
+                                   }
+                                 ] } })
+      Form.create!({ user_id: user.id,
+                     question: { "title": 'Formulário sem título 1',
+                                 "questions": [
+                                   {
+                                     "id": 1,
+                                     "title": 'Qual é o seu nome',
+                                     "type": 'text'
+                                   },
+                                   {
+                                     "id": 2,
+                                     "title": 'Você gosta de chocolate?',
+                                     "type": 'radio',
+                                     "options": %w[
+                                       sim
+                                       não
+                                       talvez
+                                     ]
+                                   },
+                                   {
+                                     "id": 3,
+                                     "title": 'Selecione suas frutas preferidas',
+                                     "type": 'checkbox',
+                                     "options": %w[
+                                       Maçã
+                                       Banana
+                                       Laranja
+                                       Melancia
+                                       Mamão
+                                     ]
+                                   },
+                                   {
+                                     "id": 4,
+                                     "title": 'Selecione suas frutas preferidas',
+                                     "type": 'checkbox',
+                                     "options": %w[
+                                       Maçã
+                                       Banana
+                                       Laranja
+                                       Melancia
+                                       Mamão
+                                     ]
+                                   }
+                                 ] } })
+      get '/create_for_me/:id', as: :json
+      expect(response).to have_http_status(:ok)
+      expect(response.content_type).to match(a_string_including('application/json'))
+    end
+  end
 end
