@@ -457,6 +457,7 @@ RSpec.describe '/forms', type: :request do # rubocop:todo Metrics/BlockLength
     end
   end
 
+  # codigo referente a estoria de usuario "EU[07]"
   describe 'CREATE FOR ME /create_for_me' do # rubocop:todo Metrics/BlockLength
     it 'renderiza todos os forms com user_id iguais' do # rubocop:todo Metrics/BlockLength
       user = User.create!({ email: 'pri@gmail.com', password: '123456' })
