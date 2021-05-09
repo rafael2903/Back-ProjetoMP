@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get '/create_for_me/:id', to: 'forms#create_for_me'
 
+  # Rota referente a estoria de usuario EU[16]
   post '/find_id', to: 'users#find_id'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

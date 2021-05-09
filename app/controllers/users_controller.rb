@@ -50,6 +50,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # Codigo referente a estoria de usuario EU[16]
   def find_id
     @user = User.find_by(email: params[:email])
     if @user.present?
