@@ -117,14 +117,14 @@ RSpec.describe '/users', type: :request do # rubocop:todo Metrics/BlockLength
     it 'renderiza mensagem de sucesso' do
       User.create!({ email: 'pri@gmail.com', password: '123456' })
       post '/find_id', params: { email: 'pri@gmail.com' },
-                      headers: { 'Content_Type': 'application/json' }, as: :json
+                       headers: { 'Content_Type': 'application/json' }, as: :json
       expect(response).to be_successful
     end
 
     it 'renderiza mensagem de email não encontrado' do
       User.create!({ email: 'pri@gmail.com', password: '123456' })
       get '/find_id', params: { email: 'pri@email.com' },
-                        headers: { 'Content_Type': 'application/json' }, as: :json
+                      headers: { 'Content_Type': 'application/json' }, as: :json
       expect(response).to have_http_status(:unprocessable_entity)
     end
   end
