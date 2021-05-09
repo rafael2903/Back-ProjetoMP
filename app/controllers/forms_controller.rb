@@ -77,7 +77,7 @@ class FormsController < ApplicationController
         form.question = Hash.from_xml(my_xml).to_json
       end
     end
-    render json: @forms
+    render json: @forms.reverse
   end
   # rubocop:enable Metrics/MethodLength
 
