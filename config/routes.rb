@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get '/respondents/:id', to: 'user_has_forms#respondents'
 
+  get '/assigned/:id', to: 'user_has_forms#assigned'
+
   get '/create_for_me/:id', to: 'forms#create_for_me'
 
   # Rota referente a estoria de usuario EU[16]

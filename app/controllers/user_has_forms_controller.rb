@@ -44,9 +44,52 @@ class UserHasFormsController < ApplicationController
   # GET /respondents/1
   def respondents
     @user_has_form = UserHasForm.all
-    @user_has_form = @user_has_form.where(form_id: params[:id])
-    render json: @user_has_form
+    @user_has_form = @user_has_form.where(form_id: params[:form_id])
+    if @user_has_form.empty?
+      render json: { error: 'Nao existem respondentes' },
+             status: :unprocessable_entity
+    else
+      render json: @user_has_form, status: :ok
+    end
   end
+
+  # rubocop:todo Metrics/PerceivedComplexity
+  # rubocop:todo Metrics/MethodLength
+  # rubocop:todo Metrics/AbcSize
+  def assigned # rubocop:todo Metrics/CyclomaticComplexity
+    @user_has_form = UserHasForm.all
+    @user_has_form = @user_has_form.where(user_id: params[:id])
+    if @user_has_form.present?
+      @forms = []
+      @user_has_form.map do |form|
+        my_xml = form.form.question
+        env = Rails.env.test?
+        if env == true
+          type = my_xml.is_a? String
+          @forms.append(form.form) if type == false
+        else
+          @forms.append(form.form)
+        end
+      end
+      @forms.map do |form|
+        my_xml = form.question
+        env = Rails.env.test?
+        if env == true
+          type = my_xml.is_a? String
+          form.question = Hash.from_xml(my_xml).to_json if type == false
+        else
+          form.question = Hash.from_xml(my_xml).to_json
+        end
+      end
+      render json: @forms, status: :ok
+    else
+      render json: { error: 'Nao existem formularios atribuidos a esse usuario' },
+             status: :unprocessable_entity
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/PerceivedComplexity
 
   private
 
