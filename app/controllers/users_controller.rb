@@ -50,6 +50,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def find_id
+    @user = User.find_by(email: params[:email])
+    if @user.present?
+      render json: { id: @user.id }, status: :ok
+    else
+      render json: { error: 'Email não existe' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
