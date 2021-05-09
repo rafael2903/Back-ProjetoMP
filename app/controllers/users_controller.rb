@@ -50,6 +50,16 @@ class UsersController < ApplicationController
     end
   end
 
+  # Codigo referente a estoria de usuario EU[16]
+  def find_id
+    @user = User.find_by(email: params[:email])
+    if @user.present?
+      render json: { id: @user.id }, status: :ok
+    else
+      render json: { error: 'Email não existe' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
