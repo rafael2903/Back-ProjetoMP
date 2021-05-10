@@ -158,7 +158,7 @@ RSpec.describe '/user_has_forms', type: :request do # rubocop:todo Metrics/Block
       UserHasForm.create!({ user_id: user1.id, form_id: form.id })
       UserHasForm.create!({ user_id: user2.id, form_id: form.id })
       UserHasForm.create!({ user_id: user3.id, form_id: form.id })
-      get '/respondents/:id', as: :json
+      get '/respondents/283', as: :json
       expect(response).to have_http_status(:ok)
       expect(response.content_type).to match(a_string_including('application/json'))
     end
