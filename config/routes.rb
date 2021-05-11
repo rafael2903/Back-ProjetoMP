@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   post '/user/auth', to: 'users#login'
 
-  get '/respondents/:id', to: 'user_has_forms#respondents'
+  get '/respondents/:form_id', to: 'user_has_forms#respondents'
 
   get '/assigned/:id', to: 'user_has_forms#assigned'
 
