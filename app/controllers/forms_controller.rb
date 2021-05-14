@@ -55,7 +55,7 @@ class FormsController < ApplicationController
       my_json2 = my_json.to_json
       my_xml = JSON.parse(my_json2).to_xml # rubocop:todo Lint/UselessAssignment
     end
-    if @form.update(form_params)
+    if @form.update({ question: my_xml, user_id: params[:user_id] })
       render json: @form
     else
       render json: @form.errors, status: :unprocessable_entity
