@@ -69,6 +69,22 @@ class FormAnswersController < ApplicationController
     @form_answer.destroy
   end
 
+  def same_form
+    @form_answer = FormAnswer.all
+    @form_answer = @form_answer.where(form_id: params[:id])
+    @form_answer.map do |form_answer|
+      my_xml = form_answer.answers
+      env = Rails.env.test?
+      if env == true
+        type = my_xml.is_a? String
+        form_answer.answers = Hash.from_xml(my_xml).to_json if type == false
+      else
+        form_answer.answers = Hash.from_xml(my_xml).to_json
+      end
+    end
+    render json: @form_answer.reverse
+  end
+
   private
 
   def set_form_answer
