@@ -70,9 +70,9 @@ class FormAnswersController < ApplicationController
   end
 
   def same_form
-    @form_answer = FormAnswer.all
-    @form_answer = @form_answer.where(form_id: params[:id])
-    @form_answer.map do |form_answer|
+    @form_answers = FormAnswer.all
+    @form_answers = @form_answers.where(form_id: params[:id])
+    @form_answers.map do |form_answer|
       my_xml = form_answer.answers
       env = Rails.env.test?
       if env == true
@@ -81,9 +81,15 @@ class FormAnswersController < ApplicationController
       else
         form_answer.answers = Hash.from_xml(my_xml).to_json
       end
+      form_answer.attributes.as_json.merge!({user_email: form_answer.user.email})
     end
-    render json: @form_answer.reverse
+    form_answers = @form_answers.map{
+      |form_answer|
+      form_answer.attributes.as_json.merge!({user_email: form_answer.user.email})
+    }
+    render json: form_answers
   end
+
 
   private
 

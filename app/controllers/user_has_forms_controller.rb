@@ -85,6 +85,7 @@ class UserHasFormsController < ApplicationController
       end
       render json: @forms, status: :ok
   end
+
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/PerceivedComplexity
