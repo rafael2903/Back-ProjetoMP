@@ -1,3 +1,5 @@
+require 'csv'
+
 # frozen_string_literal: true
 
 # codigo referente a estoria de usuario "EU10"
@@ -71,7 +73,7 @@ class FormAnswersController < ApplicationController
 
   def same_form
     @form_answers = FormAnswer.all
-    @form_answers = @form_answers.where(form_id: params[:id])
+    @form_answers = @form_answers.where(form_id: params[:form_id])
     @form_answers.map do |form_answer|
       my_xml = form_answer.answers
       env = Rails.env.test?
@@ -88,6 +90,34 @@ class FormAnswersController < ApplicationController
       form_answer.attributes.as_json.merge!({user_email: form_answer.user.email})
     }
     render json: form_answers
+  end
+
+  def download_answers
+    @form_answers = FormAnswer.all
+    @form_answers = @form_answers.where(form_id: params[:form_id])
+
+    CSV.open("answers.csv", "w") do |csv|
+      unless @form_answers.blank?
+        headers = Hash.from_xml(@form_answers.first.answers)["hash"]["questions"].map {|question| question["title"]}
+        csv.add_row(headers)
+
+        @form_answers.each do |answer|
+          answers = Hash.from_xml(answer.answers)["hash"]["questions"].map do |question|
+            if question["type"] == "text" 
+              question["value"]
+            else
+              @selected_options = question["options"].select {|option| option["checked"] }
+              @selected_options = @selected_options.map {|option| option["value"] }
+              @selected_options.join(",")
+            end
+          end
+          csv.add_row(answers)
+        end
+
+      end
+    end
+
+    send_file "answers.csv", type: "text/csv"
   end
 
 

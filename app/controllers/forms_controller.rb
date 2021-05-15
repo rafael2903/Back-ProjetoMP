@@ -64,9 +64,9 @@ class FormsController < ApplicationController
 
   # rubocop:todo Metrics/MethodLength
   # codigo referente a estoria de usuario "EU[07]"
-  def create_for_me # rubocop:todo Metrics/AbcSize
+  def create_by_me # rubocop:todo Metrics/AbcSize
     @forms = Form.order(:updated_at)
-    @forms = @forms.where(user_id: params[:id])
+    @forms = @forms.where(user_id: params[:user_id])
     @forms.map do |form|
       my_xml = form.question
       env = Rails.env.test?

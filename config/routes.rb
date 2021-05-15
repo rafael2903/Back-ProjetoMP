@@ -10,13 +10,14 @@ Rails.application.routes.draw do
 
   get '/respondents/:form_id', to: 'user_has_forms#respondents'
 
-  get '/assigned/:id', to: 'user_has_forms#assigned'
+  get '/assigned/:user_id', to: 'user_has_forms#assigned'
 
-  get '/create_for_me/:id', to: 'forms#create_for_me'
+  get '/create_by_me/:user_id', to: 'forms#create_by_me'
 
-  get 'same_form/:id', to: 'form_answers#same_form'
+  get 'same_form/:form_id', to: 'form_answers#same_form'
 
   # Rota referente a estoria de usuario EU[16]
   post '/find_id', to: 'users#find_id'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  get 'download_answers/:form_id', to: 'form_answers#download_answers'
 end

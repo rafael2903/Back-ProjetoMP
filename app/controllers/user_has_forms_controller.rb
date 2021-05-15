@@ -61,7 +61,7 @@ class UserHasFormsController < ApplicationController
   # rubocop:todo Metrics/AbcSize
   def assigned # rubocop:todo Metrics/CyclomaticComplexity
     @user_has_form = UserHasForm.all
-    @user_has_form = @user_has_form.where(user_id: params[:id])
+    @user_has_form = @user_has_form.where(user_id: params[:user_id])
       @forms = []
       @user_has_form.map do |form|
         my_xml = form.form.question
