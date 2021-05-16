@@ -55,3 +55,5 @@ gem 'simplecov', require: false, group: :test
 gem 'rubocop-rails', require: false
 
 gem 'rubocop-rspec', require: false
+
+gem 'apipie-rails'
