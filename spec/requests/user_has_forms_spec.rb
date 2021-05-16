@@ -3,7 +3,7 @@
 # TESTES referente a estoria de usuario "EU 10"
 require 'rails_helper'
 
-RSpec.describe '/user_has_forms', type: :request do # rubocop:todo Metrics/BlockLength
+RSpec.describe '/user_has_forms', type: :request do
   describe 'GET /index' do
     it 'renderiza resposta de sucesso' do
       user = User.create!({ email: 'pri@gmail.com', password: '123456' })
@@ -27,7 +27,7 @@ RSpec.describe '/user_has_forms', type: :request do # rubocop:todo Metrics/Block
     end
   end
 
-  describe 'POST /create' do # rubocop:todo Metrics/BlockLength
+  describe 'POST /create' do
     context 'com parametros validos' do
       it 'adiciona um novo respondente' do
         user = User.create!({ email: 'pri@gmail.com', password: '123456' })
@@ -77,7 +77,7 @@ RSpec.describe '/user_has_forms', type: :request do # rubocop:todo Metrics/Block
     end
   end
 
-  describe 'PATCH /update' do # rubocop:todo Metrics/BlockLength
+  describe 'PATCH /update' do
     context 'com parametros validos' do
       it 'atualiza id do respondente' do
         user = User.create!({ email: 'pri@gmail.com', password: '123456' })
@@ -133,7 +133,7 @@ RSpec.describe '/user_has_forms', type: :request do # rubocop:todo Metrics/Block
     end
   end
 
-  describe 'RESPONDENTS /respondents' do # rubocop:todo Metrics/BlockLength
+  describe 'RESPONDENTS /respondents' do
     it 'renderiza todos com form_id iguais' do
       user1 = User.create!({ email: 'pri@email.com', password: '123456' })
       user2 = User.create!({ email: 'pri@hotmail.com', password: '123456' })

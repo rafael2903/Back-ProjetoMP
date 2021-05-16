@@ -1,20 +1,29 @@
-  AllCops:
-    NewCops: disable
-    TargetRubyVersion: '2.6'
+AllCops:
+  NewCops: disable
+  TargetRubyVersion: '2.6'
 
 Gemspec/DateAssignment: # (new in 1.10)
   Enabled: true
+
 Layout:
   Enabled: true
+
 Lint:
   Enabled: true
+
 Style:
   Enabled: true
+
 Style/Documentation:
   Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+  
 Metrics/BlockLength:
   Enabled: false
 
-require: rubocop-rspec
 
-require: rubocop-rails

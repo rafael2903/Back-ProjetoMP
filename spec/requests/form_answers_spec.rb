@@ -1,11 +1,9 @@
-# frozen_string_literal: true
-
 # TESTES referente a estoria de usuario "EU 10"
 require 'rails_helper'
 
-RSpec.describe '/form_answers', type: :request do # rubocop:todo Metrics/BlockLength
-  describe 'GET /index' do # rubocop:todo Metrics/BlockLength
-    it 'renderiza resposta de sucesso' do # rubocop:todo Metrics/BlockLength
+RSpec.describe '/form_answers', type: :request do
+  describe 'GET /index' do
+    it 'renderiza resposta de sucesso' do
       creator = User.create!({ email: 'pri@gmail.com', password: '123456' })
       form = Form.create!({ user_id: creator.id,
                             question: { "title": 'Formulário sem título 1',
@@ -76,8 +74,8 @@ RSpec.describe '/form_answers', type: :request do # rubocop:todo Metrics/BlockLe
     end
   end
 
-  describe 'GET /show' do # rubocop:todo Metrics/BlockLength
-    it 'renderiza resposta de sucesso' do # rubocop:todo Metrics/BlockLength
+  describe 'GET /show' do
+    it 'renderiza resposta de sucesso' do
       creator = User.create!({ email: 'pri@gmail.com', password: '123456' })
       form = Form.create!({ user_id: creator.id,
                             question: { "title": 'Formulário sem título 1',
@@ -148,9 +146,9 @@ RSpec.describe '/form_answers', type: :request do # rubocop:todo Metrics/BlockLe
     end
   end
 
-  describe 'POST /create' do # rubocop:todo Metrics/BlockLength
-    context 'com parametros validos' do # rubocop:todo Metrics/BlockLength
-      it 'cria nova resposta a um formulario' do # rubocop:todo Metrics/BlockLength
+  describe 'POST /create' do
+    context 'com parametros validos' do
+      it 'cria nova resposta a um formulario' do
         creator = User.create!({ email: 'pri@gmail.com', password: '123456' })
         form = Form.create!({ user_id: creator.id,
                               question: { "title": 'Formulário sem título 1',
@@ -184,7 +182,7 @@ RSpec.describe '/form_answers', type: :request do # rubocop:todo Metrics/BlockLe
                                             }
                                           ] } })
         respondent = User.create!({ email: 'pri@email.com', password: '123456' })
-        expect do # rubocop:todo Metrics/BlockLength
+        expect do
           post form_answers_url,
                params: { answers: {
                  "title": 'Formulário sem título 1',
@@ -222,7 +220,7 @@ RSpec.describe '/form_answers', type: :request do # rubocop:todo Metrics/BlockLe
         end.to change(FormAnswer, :count).by(1)
       end
 
-      it 'renderiza resposta JSON de sucesso ao criar uma nova resposta' do # rubocop:todo Metrics/BlockLength
+      it 'renderiza resposta JSON de sucesso ao criar uma nova resposta' do
         creator = User.create!({ email: 'pri@gmail.com', password: '123456' })
         form = Form.create!({ user_id: creator.id,
                               question: { "title": 'Formulário sem título 1',
@@ -295,8 +293,8 @@ RSpec.describe '/form_answers', type: :request do # rubocop:todo Metrics/BlockLe
       end
     end
 
-    context 'com parametros invalidos' do # rubocop:todo Metrics/BlockLength
-      it 'nao cria uma nova resposta' do # rubocop:todo Metrics/BlockLength
+    context 'com parametros invalidos' do
+      it 'nao cria uma nova resposta' do
         creator = User.create!({ email: 'pri@gmail.com', password: '123456' })
         form = Form.create!({ user_id: creator.id,
                               question: { "title": 'Formulário sem título 1',
@@ -337,7 +335,7 @@ RSpec.describe '/form_answers', type: :request do # rubocop:todo Metrics/BlockLe
         end.to change(FormAnswer, :count).by(0)
       end
 
-      it 'renderiza resposta JSON de erro ao criar uma nova resposta' do # rubocop:todo Metrics/BlockLength
+      it 'renderiza resposta JSON de erro ao criar uma nova resposta' do
         creator = User.create!({ email: 'pri@gmail.com', password: '123456' })
         form = Form.create!({ user_id: creator.id,
                               question: { "title": 'Formulário sem título 1',
@@ -380,9 +378,9 @@ RSpec.describe '/form_answers', type: :request do # rubocop:todo Metrics/BlockLe
     end
   end
 
-  describe 'PATCH /update' do # rubocop:todo Metrics/BlockLength
-    context 'com parametros validos' do # rubocop:todo Metrics/BlockLength
-      it 'atualiza parametros da resposta' do # rubocop:todo Metrics/BlockLength
+  describe 'PATCH /update' do
+    context 'com parametros validos' do
+      it 'atualiza parametros da resposta' do
         creator = User.create!({ email: 'pri@gmail.com', password: '123456' })
         form = Form.create!({ user_id: creator.id,
                               question: { "title": 'Formulário sem título 1',
@@ -497,7 +495,7 @@ RSpec.describe '/form_answers', type: :request do # rubocop:todo Metrics/BlockLe
         form_answer.reload
       end
 
-      it 'renderiza resposta de sucesso ao atualizar parametros da resposta' do # rubocop:todo Metrics/BlockLength
+      it 'renderiza resposta de sucesso ao atualizar parametros da resposta' do
         creator = User.create!({ email: 'pri@gmail.com', password: '123456' })
         form = Form.create!({ user_id: creator.id,
                               question: { "title": 'Formulário sem título 1',
@@ -614,8 +612,8 @@ RSpec.describe '/form_answers', type: :request do # rubocop:todo Metrics/BlockLe
       end
     end
 
-    context 'com parametros invalidos' do # rubocop:todo Metrics/BlockLength
-      it 'renderiza resposta JSON de erro ao atualizar parametros invalidos' do # rubocop:todo Metrics/BlockLength
+    context 'com parametros invalidos' do
+      it 'renderiza resposta JSON de erro ao atualizar parametros invalidos' do
         creator = User.create!({ email: 'pri@gmail.com', password: '123456' })
         form = Form.create!({ user_id: creator.id,
                               question: { "title": 'Formulário sem título 1',
@@ -660,8 +658,8 @@ RSpec.describe '/form_answers', type: :request do # rubocop:todo Metrics/BlockLe
     end
   end
 
-  describe 'DELETE /destroy' do # rubocop:todo Metrics/BlockLength
-    it 'deleta resposta ao formulario' do # rubocop:todo Metrics/BlockLength
+  describe 'DELETE /destroy' do
+    it 'deleta resposta ao formulario' do
       creator = User.create!({ email: 'pri@gmail.com', password: '123456' })
       form = Form.create!({ user_id: creator.id,
                             question: { "title": 'Formulário sem título 1',

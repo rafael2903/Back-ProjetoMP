@@ -17,7 +17,7 @@ class UserHasFormsController < ApplicationController
   end
 
   # POST /user_has_forms
-  def create # rubocop:todo Metrics/MethodLength
+  def create
     @user_has_form = UserHasForm.all.where(form_id: params[:form_id], user_id: params[:user_id])
     if @user_has_form.present?
       render json: { error: 'Esse formulário já foi compartilhado com esse usuário' }, status: :unprocessable_entity
@@ -56,7 +56,6 @@ class UserHasFormsController < ApplicationController
   end
 
   # rubocop:todo Metrics/PerceivedComplexity
-  # rubocop:todo Metrics/MethodLength
   # rubocop:todo Metrics/AbcSize
   def assigned
     @user_has_form = UserHasForm.all
@@ -86,7 +85,6 @@ class UserHasFormsController < ApplicationController
   end
 
   # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/PerceivedComplexity
 
   private

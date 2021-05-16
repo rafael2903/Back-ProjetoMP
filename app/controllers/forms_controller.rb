@@ -5,7 +5,7 @@ class FormsController < ApplicationController
   before_action :set_form, only: %i[show update destroy]
 
   # GET /forms
-  def index # rubocop:todo Metrics/MethodLength
+  def index
     @forms = Form.order(:updated_at)
     @forms.map do |form|
       my_xml = form.question
@@ -34,7 +34,7 @@ class FormsController < ApplicationController
   end
 
   # POST /forms
-  def create # rubocop:todo Metrics/MethodLength
+  def create
     my_json = params[:question]
     unless my_json.nil?
       my_json2 = my_json.to_json
@@ -62,7 +62,6 @@ class FormsController < ApplicationController
     end
   end
 
-  # rubocop:todo Metrics/MethodLength
   # codigo referente a estoria de usuario "EU[07]"
   def created_by_me # rubocop:todo Metrics/AbcSize
     @forms = Form.order(:updated_at)
@@ -79,7 +78,6 @@ class FormsController < ApplicationController
     end
     render json: @forms.reverse
   end
-  # rubocop:enable Metrics/MethodLength
 
   # DELETE /forms/1
   def destroy

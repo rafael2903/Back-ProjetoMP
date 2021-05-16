@@ -7,7 +7,7 @@ class FormAnswersController < ApplicationController # rubocop:todo Metrics/Class
   before_action :set_form_answer, only: %i[show update destroy]
 
   # GET /form_answers
-  def index # rubocop:todo Metrics/MethodLength
+  def index
     @form_answers = FormAnswer.all
     @form_answers.map do |form|
       my_xml = form.answers
@@ -36,7 +36,7 @@ class FormAnswersController < ApplicationController # rubocop:todo Metrics/Class
   end
 
   # POST /form_answers
-  def create # rubocop:todo Metrics/MethodLength
+  def create
     my_json = params[:answers]
     unless my_json.nil?
       my_json2 = my_json.to_json
@@ -52,7 +52,7 @@ class FormAnswersController < ApplicationController # rubocop:todo Metrics/Class
   end
 
   # PATCH/PUT /form_answers/1
-  def update # rubocop:todo Metrics/MethodLength
+  def update
     my_json = params[:answers]
     unless my_json.nil?
       my_json2 = my_json.to_json
@@ -93,7 +93,6 @@ class FormAnswersController < ApplicationController # rubocop:todo Metrics/Class
   end
 
   # rubocop:todo Metrics/PerceivedComplexity
-  # rubocop:todo Metrics/MethodLength
   # rubocop:todo Metrics/AbcSize
   def download_answers # rubocop:todo Metrics/CyclomaticComplexity
     @form_answers = FormAnswer.all
@@ -119,7 +118,6 @@ class FormAnswersController < ApplicationController # rubocop:todo Metrics/Class
     send_file 'answers.csv', type: 'text/csv'
   end
   # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/PerceivedComplexity
 
   private

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateFormAnswers < ActiveRecord::Migration[6.0] # rubocop:todo Style/Documentation
+class CreateFormAnswers < ActiveRecord::Migration[6.0]
   def change
     create_table :form_answers do |t|
       t.string :answers
