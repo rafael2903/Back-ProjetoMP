@@ -17,17 +17,17 @@ class UserHasFormsController < ApplicationController
   end
 
   # POST /user_has_forms
-  def create
+  def create # rubocop:todo Metrics/MethodLength
     @user_has_form = UserHasForm.all.where(form_id: params[:form_id], user_id: params[:user_id])
-    unless @user_has_form.present?
+    if @user_has_form.present?
+      render json: { error: 'Esse formulário já foi compartilhado com esse usuário' }, status: :unprocessable_entity
+    else
       @user_has_form = UserHasForm.new(user_has_form_params)
       if @user_has_form.save
         render json: @user_has_form, status: :created, location: @user_has_form
       else
         render json: @user_has_form.errors, status: :unprocessable_entity
       end
-    else
-      render json: { error: 'Esse formulário já foi compartilhado com esse usuário' }, status: :unprocessable_entity
     end
   end
 
@@ -49,41 +49,40 @@ class UserHasFormsController < ApplicationController
   def respondents
     @user_has_form = UserHasForm.all
     @respondents = @user_has_form.where(form_id: params[:form_id])
-    @respondents = @respondents.map{
-      |respondent|
-      respondent.attributes.as_json.merge!(user: {email: respondent.user.email})
-    }
+    @respondents = @respondents.map do |respondent|
+      respondent.attributes.as_json.merge!(user: { email: respondent.user.email })
+    end
     render json: @respondents, status: :ok
   end
 
   # rubocop:todo Metrics/PerceivedComplexity
   # rubocop:todo Metrics/MethodLength
   # rubocop:todo Metrics/AbcSize
-  def assigned # rubocop:todo Metrics/CyclomaticComplexity
+  def assigned
     @user_has_form = UserHasForm.all
     @user_has_form = @user_has_form.where(user_id: params[:user_id])
-      @forms = []
-      @user_has_form.map do |form|
-        my_xml = form.form.question
-        env = Rails.env.test?
-        if env == true
-          type = my_xml.is_a? String
-          @forms.append(form.form) if type == false
-        else
-          @forms.append(form.form)
-        end
+    @forms = []
+    @user_has_form.map do |form|
+      my_xml = form.form.question
+      env = Rails.env.test?
+      if env == true
+        type = my_xml.is_a? String
+        @forms.append(form.form) if type == false
+      else
+        @forms.append(form.form)
       end
-      @forms.map do |form|
-        my_xml = form.question
-        env = Rails.env.test?
-        if env == true
-          type = my_xml.is_a? String
-          form.question = Hash.from_xml(my_xml).to_json if type == false
-        else
-          form.question = Hash.from_xml(my_xml).to_json
-        end
+    end
+    @forms.map do |form|
+      my_xml = form.question
+      env = Rails.env.test?
+      if env == true
+        type = my_xml.is_a? String
+        form.question = Hash.from_xml(my_xml).to_json if type == false
+      else
+        form.question = Hash.from_xml(my_xml).to_json
       end
-      render json: @forms, status: :ok
+    end
+    render json: @forms, status: :ok
   end
 
   # rubocop:enable Metrics/AbcSize

@@ -14,3 +14,7 @@ Style/Documentation:
   Enabled: false
 Metrics/BlockLength:
   Enabled: false
+
+require: rubocop-rspec
+
+require: rubocop-rails

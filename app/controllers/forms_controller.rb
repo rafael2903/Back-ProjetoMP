@@ -53,7 +53,7 @@ class FormsController < ApplicationController
     my_json = params[:question]
     unless my_json.nil?
       my_json2 = my_json.to_json
-      my_xml = JSON.parse(my_json2).to_xml # rubocop:todo Lint/UselessAssignment
+      my_xml = JSON.parse(my_json2).to_xml
     end
     if @form.update({ question: my_xml, user_id: params[:user_id] })
       render json: @form
@@ -64,7 +64,7 @@ class FormsController < ApplicationController
 
   # rubocop:todo Metrics/MethodLength
   # codigo referente a estoria de usuario "EU[07]"
-  def create_by_me # rubocop:todo Metrics/AbcSize
+  def created_by_me # rubocop:todo Metrics/AbcSize
     @forms = Form.order(:updated_at)
     @forms = @forms.where(user_id: params[:user_id])
     @forms.map do |form|

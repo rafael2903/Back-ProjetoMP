@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   get '/assigned/:user_id', to: 'user_has_forms#assigned'
 
-  get '/create_by_me/:user_id', to: 'forms#create_by_me'
+  get '/created_by_me/:user_id', to: 'forms#created_by_me'
 
   get 'same_form/:form_id', to: 'form_answers#same_form'
 
