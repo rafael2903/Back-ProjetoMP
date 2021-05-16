@@ -4,7 +4,7 @@
 class FormsController < ApplicationController
   before_action :set_form, only: %i[show update destroy]
 
-  # GET /forms
+  api :GET, '/forms', 'mostra todos os formularios'
   def index
     @forms = Form.order(:updated_at)
     @forms.map do |form|
@@ -20,7 +20,8 @@ class FormsController < ApplicationController
     render json: @forms.reverse
   end
 
-  # GET /forms/1
+  api :GET, '/forms/:id', 'mostra um formulario especifico em json'
+  param :id, :number, 'id do formulario'
   def show
     my_xml = @form.question
     env = Rails.env.test?
@@ -33,7 +34,9 @@ class FormsController < ApplicationController
     render json: @form
   end
 
-  # POST /forms
+  api :POST, '/forms', 'cria um novo formulario e armazena em xml'
+  param :user_id, :number, 'id do usuario criador de formulario'
+  param :question, String, 'objeto json que que contem titulo e perguntas do formulario'
   def create
     my_json = params[:question]
     unless my_json.nil?
@@ -49,6 +52,10 @@ class FormsController < ApplicationController
   end
 
   # PATCH/PUT /forms/1
+  api :PATCH, '/forms/:id', 'atualiza um formulario e armazena em xml'
+  api :PUT, '/forms/:id', 'atualiza um formulario e armazena em xml'
+  param :user_id, :number, 'id atualizado do usuario criador de formulario'
+  param :question, String, 'objeto json que contem novo titulo e/ou novas perguntas do formulario'
   def update
     my_json = params[:question]
     unless my_json.nil?
@@ -63,6 +70,8 @@ class FormsController < ApplicationController
   end
 
   # codigo referente a estoria de usuario "EU[07]"
+  api :GET, '/created_by_me/:user_id', 'mostra todos os formularios, em json, criados pelo mesmo usuario'
+  param :id, :number, 'id do usuario'
   def created_by_me # rubocop:todo Metrics/AbcSize
     @forms = Form.order(:updated_at)
     @forms = @forms.where(user_id: params[:user_id])
@@ -79,7 +88,8 @@ class FormsController < ApplicationController
     render json: @forms.reverse
   end
 
-  # DELETE /forms/1
+  api :DELETE, '/forms/:id', 'exclui formulario'
+  param :form_id, :number, 'id do formulario'
   def destroy
     @form.destroy
   end

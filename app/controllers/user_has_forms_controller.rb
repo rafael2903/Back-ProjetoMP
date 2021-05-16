@@ -4,19 +4,22 @@
 class UserHasFormsController < ApplicationController
   before_action :set_user_has_form, only: %i[show update destroy]
 
-  # GET /user_has_forms
+  api :GET, '/user_has_forms', 'mostra todos usuarios atribuidos a um formulario'
   def index
     @user_has_forms = UserHasForm.all
 
     render json: @user_has_forms
   end
 
-  # GET /user_has_forms/1
+  api :GET, '/user_has_forms/:id', 'mostra um usuario especifico atribuido a um formulario'
+  param :id, :number, 'id do usuario'
   def show
     render json: @user_has_form
   end
 
-  # POST /user_has_forms
+  api :POST, '/user_has_forms', 'adiciona um novo usuario a um formulario'
+  param :user_id, :number, 'id do usuario que vai ser adicionado'
+  param :form_id, :number, 'id do formulario que o usuario vai ser atribuido'
   def create
     @user_has_form = UserHasForm.all.where(form_id: params[:form_id], user_id: params[:user_id])
     if @user_has_form.present?
@@ -31,7 +34,11 @@ class UserHasFormsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /user_has_forms/1
+  api :PATCH, '/user_has_forms/:id', 'atualiza usuario que vai ser adicionado ou formulario que vai ser atribuido'
+  api :PUT, '/user_has_forms/:id', 'atualiza usuario que vai ser adicionado ou formulario que vai ser atribuido'
+  param :id, :number, 'id da atribuicao'
+  param :form_id, :number, 'id do novo formulario que o usuario vai ser atribuido'
+  param :user_id, :number, 'id do novo usuario que vai ser adicionado'
   def update
     if @user_has_form.update(user_has_form_params)
       render json: @user_has_form
@@ -40,12 +47,14 @@ class UserHasFormsController < ApplicationController
     end
   end
 
-  # DELETE /user_has_forms/1
+  api :DELETE, '/user_has_forms/:id', 'exclui uma atribuicao'
+  param :id, :number, 'id da atribuicao'
   def destroy
     @user_has_form.destroy
   end
 
-  # GET /respondents/1
+  api :GET, '/respondents/:form_id', 'mostra todos os usuarios atribuidos em um mesmo formulario'
+  param :form_id, :number, 'id do formulario'
   def respondents
     @user_has_form = UserHasForm.all
     @respondents = @user_has_form.where(form_id: params[:form_id])
@@ -57,6 +66,8 @@ class UserHasFormsController < ApplicationController
 
   # rubocop:todo Metrics/PerceivedComplexity
   # rubocop:todo Metrics/AbcSize
+  api :GET, '/assigned/:user_id', 'mostra todos os formularios, em json, atribuidos para um mesmo usuario'
+  param :form_id, :number, 'id do usuario'
   def assigned
     @user_has_form = UserHasForm.all
     @user_has_form = @user_has_form.where(user_id: params[:user_id])
@@ -94,7 +105,6 @@ class UserHasFormsController < ApplicationController
     @user_has_form = UserHasForm.find(params[:id])
   end
 
-  # Only allow a trusted parameter "white list" through.
   def user_has_form_params
     params.require(:user_has_form).permit(:user_id, :form_id)
   end

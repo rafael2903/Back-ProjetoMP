@@ -59,3 +59,4 @@ gem 'rubocop-rspec', require: false
 group :development do
   gem 'brakeman'
 end
+gem 'apipie-rails'

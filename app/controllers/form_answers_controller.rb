@@ -6,7 +6,7 @@ require 'csv'
 class FormAnswersController < ApplicationController # rubocop:todo Metrics/ClassLength
   before_action :set_form_answer, only: %i[show update destroy]
 
-  # GET /form_answers
+  api :GET, '/form_answers', 'mostra todas as respostas de todos os formularios em json'
   def index
     @form_answers = FormAnswer.all
     @form_answers.map do |form|
@@ -22,7 +22,8 @@ class FormAnswersController < ApplicationController # rubocop:todo Metrics/Class
     render json: @form_answers
   end
 
-  # GET /form_answers/1
+  api :GET, '/form_answers/:id', 'mostra uma resposta especifica'
+  param :id, :number, desc: 'id da resposta ao formulario'
   def show
     my_xml = @form_answer.answers
     env = Rails.env.test?
@@ -35,7 +36,10 @@ class FormAnswersController < ApplicationController # rubocop:todo Metrics/Class
     render json: @form_answer
   end
 
-  # POST /form_answers
+  api :POST, '/form_answers', 'cria uma nova resposta, armazenando em xml'
+  param :form_id, :number, desc: 'id do formulario que vai ser respondido'
+  param :user_id, :number, desc: 'id do usuario que responde o formulario'
+  param :answer, String, desc: 'objeto json com todas as respostas'
   def create
     my_json = params[:answers]
     unless my_json.nil?
@@ -51,7 +55,11 @@ class FormAnswersController < ApplicationController # rubocop:todo Metrics/Class
     end
   end
 
-  # PATCH/PUT /form_answers/1
+  api :PATCH, '/form_answers/:id', 'atualiza uma resposta, armazenando em xml'
+  api :PUT, '/form_answers/:id', 'atualiza uma resposta, armazenando em xml'
+  param :form_id, :number, desc: 'id atualizado do formulario que vai ser respondido'
+  param :user_id, :number, desc: 'id atualizado do usuario que responde o formulario'
+  param :answer, String, desc: 'objeto json atualizado com todas as respostas'
   def update
     my_json = params[:answers]
     unless my_json.nil?
@@ -66,11 +74,14 @@ class FormAnswersController < ApplicationController # rubocop:todo Metrics/Class
     end
   end
 
-  # DELETE /form_answers/1
+  api :DELETE, '/form_answers/:id', 'exclui uma resposta de um formulario'
+  param :id, :number, 'id da resposta'
   def destroy
     @form_answer.destroy
   end
 
+  api :GET, '/same_form/:form_id', 'mostra todas as respostas do mesmo formulario'
+  param :form_id, :number, desc: 'id do formulario'
   def same_form
     @form_answers = FormAnswer.all.where(form_id: params[:form_id])
     @form_answers.map do |form_answer|
@@ -92,6 +103,8 @@ class FormAnswersController < ApplicationController # rubocop:todo Metrics/Class
     end
   end
 
+  api :GET, '/download_answers/:form_id', 'faz o download de todas as respostas de um formulario em .csv'
+  param :form_id, :number, desc: 'id do formulario'
   # rubocop:todo Metrics/PerceivedComplexity
   # rubocop:todo Metrics/AbcSize
   def download_answers # rubocop:todo Metrics/CyclomaticComplexity
