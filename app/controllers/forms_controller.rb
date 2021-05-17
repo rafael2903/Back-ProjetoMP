@@ -36,7 +36,7 @@ class FormsController < ApplicationController
 
   api :POST, '/forms', 'cria um novo formulario e armazena em xml'
   param :user_id, :number, 'id do usuario criador de formulario'
-  param :question, String, 'objeto json que que contem titulo e perguntas do formulario'
+  param :question, Hash, 'objeto json que que contem titulo e perguntas do formulario'
   def create
     my_json = params[:question]
     unless my_json.nil?
@@ -55,7 +55,7 @@ class FormsController < ApplicationController
   api :PATCH, '/forms/:id', 'atualiza um formulario e armazena em xml'
   api :PUT, '/forms/:id', 'atualiza um formulario e armazena em xml'
   param :user_id, :number, 'id atualizado do usuario criador de formulario'
-  param :question, String, 'objeto json que contem novo titulo e/ou novas perguntas do formulario'
+  param :question, Hash, 'objeto json que contem novo titulo e/ou novas perguntas do formulario'
   def update
     my_json = params[:question]
     unless my_json.nil?

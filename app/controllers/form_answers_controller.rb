@@ -39,7 +39,7 @@ class FormAnswersController < ApplicationController # rubocop:todo Metrics/Class
   api :POST, '/form_answers', 'cria uma nova resposta, armazenando em xml'
   param :form_id, :number, desc: 'id do formulario que vai ser respondido'
   param :user_id, :number, desc: 'id do usuario que responde o formulario'
-  param :answer, String, desc: 'objeto json com todas as respostas'
+  param :answers, Hash, desc: 'objeto json com todas as respostas'
   def create
     my_json = params[:answers]
     unless my_json.nil?
@@ -59,7 +59,7 @@ class FormAnswersController < ApplicationController # rubocop:todo Metrics/Class
   api :PUT, '/form_answers/:id', 'atualiza uma resposta, armazenando em xml'
   param :form_id, :number, desc: 'id atualizado do formulario que vai ser respondido'
   param :user_id, :number, desc: 'id atualizado do usuario que responde o formulario'
-  param :answer, String, desc: 'objeto json atualizado com todas as respostas'
+  param :answer, Hash, desc: 'objeto json atualizado com todas as respostas'
   def update
     my_json = params[:answers]
     unless my_json.nil?
