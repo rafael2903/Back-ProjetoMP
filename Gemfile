@@ -60,5 +60,3 @@ group :development do
   gem 'brakeman'
 end
 gem 'apipie-rails'
-
-gem 'json-schema'

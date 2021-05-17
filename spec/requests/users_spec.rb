@@ -2,13 +2,6 @@
 # TESTES referente a estoria de usuario "EU 01"
 require 'rails_helper'
 
-
-require 'spec_helper'
-require 'rack/utils'
-require 'rspec/expectations'
-require 'apipie/rspec/response_validation_helper'
-require 'json-schema'
-
 RSpec.describe '/users', type: :request do
   describe 'GET /index' do
     it 'renderiza resposta de sucesso' do
