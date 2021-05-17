@@ -2,6 +2,7 @@
 
 # TESTES referente a estoria de usuario "EU 10"
 require 'rails_helper'
+require 'apipie/rspec/response_validation_helper'
 
 RSpec.describe '/user_has_forms', type: :request do
   describe 'GET /index' do
